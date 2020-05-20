@@ -73,33 +73,58 @@ std::pair<KeyType,ValueType> get_max( const std::map<KeyType,ValueType>& x ) {
 int main()
 {
     IOS;
-    testcases
+    ll int n;
+    cin>>n;
+    vector<ll int> arr(n);
+    ai(arr,n);
+    ll int netsum=0;
+    for(int i=0;i<n;i++)
+    netsum+=arr[i];
+    
+    if(netsum%3!=0)
     {
-		string str;
-		cin>>str;
-		//string take as input
-		int n=str.length();
-		int j=0;
-	   	int ans=INT_MAX;
-	   	map<int,int> m;
-	   	// using two pointer technique
-        for(int i=0;i<n;i++)
-        {
-			while(j<n&&(m[1]==0||m[2]==0||m[3]==0))
-			{
-				m[str[j]-'0']++; 
-				// This while loop goes in right direction till we find all the numbers as non zero
-				j++; 
-			}
-			if(m[1]!=0&&m[2]!=0&&m[3]!=0)
-			ans = min(ans,j-i);  // If found then update the answer value;
-			m[str[i]-'0']--;// decrease the value of first pointer as we are going to increase the first pointer.
+    cout<<0<<endl;
+     }
+    else
+    {
+		//creating a prefix and suffix array
+		ll int pre[n];
+		pre[0]=arr[0];
+		for(int i=1;i<n;i++)
+		{
+			pre[i]=arr[i]+pre[i-1];
 		}
-		if(ans==INT_MAX)
-		cout<<0<<endl; // if no change has been made into the ans the print the value 0
-		else
-		cout<<ans<<endl; // else print the answer.
+		ll int suffix[n];
+		suffix[n-1]=arr[n-1];
+		for(int i=n-2;i>=0;i--)
+		{
+			suffix[i]=suffix[i+1]+arr[i];
+		}
+		vector<ll int> temp;
+		ll answer=0;
+		for(int i=0;i<n;i++)
+		{
+			if(suffix[i]==netsum/3)
+			temp.pb(i);
+		}
+		//ao(suffix);
+		//cout<<endl;
+		//ao(pre);
+		//cout<<endl;
+		//ao(temp);
+		//cout<<endl;
+		for(int i=0;i<n;i++)
+		{
+			if(pre[i]==netsum/3)
+			{
+				// now looking for total number of indexes present in the temp greater than i+1 which can be used to split the array
+				if(upper_bound(all(temp),i+1)!=temp.end()) // found
+				{
+					answer+= distance(upper_bound(all(temp),i+1),temp.end());
+				}
+			}
+		}
+		cout<<answer<<endl;
 	}
-}	
-			
-	
+    
+}
