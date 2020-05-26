@@ -121,14 +121,46 @@ vector<int> prefixfuntion(string str)
 	return prefix;
 }
 
-
+#define noanswer "Just a legend"
 int main()
 {
    
   IOS;
   string str;
   cin>>str;
-  ao(prefixfuntion(str));
+  ll int n=str.length();
+  vector<int> prefix = prefixfuntion(str);
+  //ao(prefix);
+  int flag=0;
+  //ao(prefix);
+  if(prefix[n-1]==0)
+  cout<<"Just a legend"<<endl;
+  else
+  {
+	  for(int i=0;i<n-1;i++)
+	  {
+		  if(prefix[i]==prefix[n-1])
+		  {
+			  string strr;
+			  strr=str.substr(0,prefix[n-1]);
+			  cout<<strr<<endl;
+			  flag=1;
+			  break;
+		  }
+	  }
+	  if(flag==0)
+	  {
+		  if(prefix[prefix[n-1]-1]==0)
+		  cout<<noanswer<<endl;
+		  else
+		  {
+			  if(prefix[prefix[n-1]-1]>0)
+			  {
+				  cout<<str.substr(0,prefix[prefix[n-1]-1])<<endl;
+			  }
+		  }
+	  }
+  }
 }
 
 
