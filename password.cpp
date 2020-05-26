@@ -1,20 +1,33 @@
 #include <iostream>
-#include <sstream>
+#include <iosfwd>
+#include <iomanip>
 #include <cstdio>
-#include <cmath>
 #include <cstring>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <cassert>
 #include <cctype>
-#include <string>
+#include <climits>
 #include <vector>
-#include <list>
+#include <bitset>
 #include <set>
-#include <map>
 #include <queue>
 #include <stack>
-#include <algorithm>
+#include <map>
+#include <deque>
+#include <string>
+#include <list>
+#include <iterator>
+#include <sstream>
+#include <complex>
+#include <fstream>
 #include <functional>
 #include <numeric>
-#include <climits>
+#include <utility>
+#include <algorithm>
+#include <assert.h>
+#include <unordered_map>
 using namespace std;
 // I hope you understand what i have coded :D , All the best
 // shubhamk840@gmail.com
@@ -27,7 +40,7 @@ using namespace std;
 #define setiterator set<int>:: iterator
 #define yes cout<<"YES"<<endl
 #define no cout<<"NO"<<endl
-#define mod 1000000007
+#define MOD 1000000007
 // macros for inputting 1-D and 2-D array.
 #define stringiterator string:: iterator
 #define pb push_back
@@ -69,55 +82,88 @@ std::pair<KeyType,ValueType> get_max( const std::map<KeyType,ValueType>& x ) {
         return p1.second < p2.second;
   }); 
 }
-#define prime 31
-ll int find(string str,string second)
-{
-	ll int m=second.length();
-   ll int n = str.length();
-   ll int sum=0;
-   ll int sum2=0;
-   for(int i=0;i<str.length();i++)
-   {
-	   sum+= (str[i]*(ll)pow(prime,i));
-	   sum2+=(second[i]*(ll)pow(prime,i));
-   }
-   for(int i=0;i<m-n+1;i++) // points to remember that 0 has been made the basis
-   {
-	   if(sum==sum2)
-	   {
-		   // this has been written to verify or target the problem of spurious hits
-		   int f=0;
-		   int s=i;
-		   while(str[f]==second[s]&&f<n)
-		   {
-			   f++;s++;
-		   }
-		   if(f==n)
-		   {
-			   //cout<<"found at index"<<i<<endl;
-			   return 1;
-		   }
-	   }
-	   if(i<m-n)
-	   {
-		   sum2 = ((sum2-second[i])/prime +second[i+n]*(ll)pow(prime,n-1))%mod;
-		   if(sum2<0)
-		   sum2+=mod;
-	   }
-   }
-   return 0;
+
+int add(int a, int b, int mod = MOD) {
+    if (a + b >= mod) {
+        return a + b - mod;
+    }
+    return a + b;
 }
+ 
+int sub(int a, int b, int mod = MOD) {
+    if (a - b < 0) {
+        return a - b + mod;
+    }
+    return a - b;
+}
+ 
+int mul(int a, int b, int mod = MOD) {
+    return (int)(1ll * a * b % mod);
+}
+
+vector<int> prefixfuntion(string str)
+{
+	int n=str.length();
+	vector<int> prefix(n);
+	prefix[0]=0;
+	int l;
+	for(int i=1;i<n;i++)
+	{
+		l = prefix[i-1];
+		while(l>0&& str[i]!=str[l])
+		{
+			l = prefix[l-1];
+		}
+		if(str[i]==str[l])
+		l++;
+		prefix[i]=l;
+	}
+	return prefix;
+}
+
 
 int main()
 {
-    IOS;
-    string second;
-    cin>>second;
-    string str;
-    cin>>str;
-    if(find(str,second))
-    cout<<"yes found"<<endl;
-    else
-    cout<<"not found"<<endl;
+   
+  IOS;
+  string str;
+  cin>>str;
+  ao(prefixfuntion(str));
 }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
