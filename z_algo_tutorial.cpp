@@ -146,9 +146,21 @@ vector<int> zalgo(string str)
 int main()
 {
   IOS;
+  string main;
+  cin>>main;
   string str;
   cin>>str;
-  ao(zalgo(str));
+  int temp = str.length();
+  str += "$";
+  str+= main;
+  vector<int> answer = zalgo(str);
+  for(int i=0;i<answer.size();i++)
+  {
+	  if(answer[i]==temp)
+	  {
+		  cout<<i-temp<<endl;
+	  }
+  }
 }
 
 
